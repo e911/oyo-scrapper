@@ -1,8 +1,7 @@
 import os, sys, time
 import csv
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from operator import itemgetter
 
 # os.environ['MOZ_HEADLESS'] = '1'
@@ -22,10 +21,6 @@ def parser_oyo(driver):
 
 	time.sleep(5)
 
-	# hotels = driver.find_elements_by_class_name("newHotelCard")
-	# for hotel in hotels:
-	#     price = hotel.find_elements_by_class_name("newHotelCard__pricing")
-	#     print(price[0].text)
 	hotels_data = []
 
 	hotels_list = driver.find_elements_by_class_name("newHotelCard")
@@ -43,26 +38,6 @@ def parser_oyo(driver):
 		hotel_rating = hotels.find_elements_by_class_name("hotelRating__value")
 		hotel_rating_remarks = hotels.find_elements_by_class_name("hotelRating__subtext")
 
-		# try:
-		# 	disc_price = hotel_discounted_amount[0].text
-		# except IndexError:
-		# 	disc_price = 0
-
-		# try:
-		# 	disc_perc = hotel_discount_percentage[0].text
-		# except IndexError:
-		# 	disc_perc = 0
-
-		# try:
-		# 	rating = hotel_rating[0].text
-		# except IndexError:
-		# 	rating = 0
-
-		# try:
-		# 	remarks = hotel_rating_remarks[0].text
-		# except IndexError:
-		# 	remarks = None
-
 		original_price = clean_data(hotel_not_discounted_amount)
 		disc_perc = clean_data(hotel_discount_percentage)
 		rating = clean_data(hotel_rating)
@@ -79,7 +54,6 @@ def parser_oyo(driver):
 			}
 		print(data)
 		hotels_data.append(data)
-	# print(hotels_data)
 	# del os.environ['MOZ_HEADLESS'] 
 	return hotels_data
 
@@ -116,28 +90,11 @@ if __name__ == '__main__':
 
 	csv_columns = ['Name','Location','Price after Disc', 'Original Price', 'Disc Percentage', 'Rating', 'Remarks']
 	csv_file = "Hotels List.csv"
-	write_data_to_csv(parsed_data, csv_columns, csv_file)
-
-	# try:
-	# 	with open(csv_file, 'w') as csvfile:
-	# 		writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-	# 		writer.writeheader()
-	# 		for data in parsed_data:
-	# 			writer.writerow(data)
-	# except IOError:
-	# 	print("I/O error") 
+	write_data_to_csv(parsed_data, csv_columns, csv_file) 
 
 	data_sorted_by_price = sorted(parsed_data, key=itemgetter('Price after Disc'))
 	sorted_csv_file = "Hotel List sorted by price.csv"
 	write_data_to_csv(data_sorted_by_price, csv_columns, sorted_csv_file)
 
-	# 	try:
-	# 	with open(csv_file, 'w') as csvfile:
-	# 		writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-	# 		writer.writeheader()
-	# 		for data in data_sorted_by_price:
-	# 			writer.writerow(data)
-	# except IOError:
-	# 	print("I/O error") 
 
 
