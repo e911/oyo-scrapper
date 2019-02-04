@@ -35,7 +35,7 @@ def parser_oyo(driver):
 
 		hotel_price_detail = hotels.find_elements_by_class_name("newHotelCard__pricing")
 		price = hotel_price_detail[0].text
-		hotel_price =  ' '.join(price.split(" ")[:2])
+		hotel_price =  int(price.split(" ")[1])
 
 
 		hotel_not_discounted_amount = hotels.find_elements_by_class_name("newHotelCard__revisedPricing")
