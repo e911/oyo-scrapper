@@ -127,7 +127,7 @@ if __name__ == '__main__':
 	# except IOError:
 	# 	print("I/O error") 
 
-	data_sorted_by_price = sorted(list_to_be_sorted, key=itemgetter('Price after Disc'))
+	data_sorted_by_price = sorted(parsed_data, key=itemgetter('Price after Disc'))
 	sorted_csv_file = "Hotel List sorted by price.csv"
 	write_data_to_csv(data_sorted_by_price, csv_columns, sorted_csv_file)
 
