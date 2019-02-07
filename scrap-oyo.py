@@ -70,7 +70,7 @@ def write_data_to_csv(parsed_data, csv_columns, csv_file):
 
 
 if __name__ == '__main__':
-	url = "https://www.oyorooms.com/oyos-in-kathmandu"
+	url = sys.argv[1]
 	driver = webdriver.Chrome()
 	driver.get(url)
 	parsed_data = parser_oyo(driver)
